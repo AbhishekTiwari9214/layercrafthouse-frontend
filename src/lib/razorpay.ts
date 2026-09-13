@@ -80,12 +80,13 @@ export async function openRazorpayCheckout(
 ): Promise<RazorpaySuccessResponse> {
   await loadRazorpayScript();
 
-  if (!window.Razorpay) {
+  const Razorpay = window.Razorpay;
+  if (!Razorpay) {
     throw new Error("Razorpay SDK unavailable");
   }
 
   return new Promise((resolve, reject) => {
-    const rzp = new window.Razorpay({
+    const rzp = new Razorpay({
       ...options,
       theme: { color: "#c4a574", ...(options.theme || {}) },
       handler: (response) => resolve(response),
