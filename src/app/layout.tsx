@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
@@ -22,6 +22,15 @@ export const metadata: Metadata = {
   description:
     "A modern duffel, shaped by craftsmanship and designed for the journey. Quiet luxury, exceptional materials, timeless design.",
   keywords: ["luxury duffel bag", "craftsmanship", "Layer Craft House", "premium travel"],
+  applicationName: "Layer Craft House",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#080808",
 };
 
 export default function RootLayout({
