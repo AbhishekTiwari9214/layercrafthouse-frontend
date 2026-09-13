@@ -39,14 +39,23 @@ async function request<T>(
     response = await fetch(`${API_BASE}${path}`, {
       ...options,
       credentials: "include",
+      signal: options.signal ?? AbortSignal.timeout(20000),
       headers: {
         "Content-Type": "application/json",
         ...(isNgrokClient() ? { "ngrok-skip-browser-warning": "true" } : {}),
         ...(options.headers || {}),
       },
     });
-  } catch {
-    throw new ApiError("Network error — could not reach the server", 0);
+  } catch (error) {
+    const timedOut =
+      error instanceof DOMException &&
+      (error.name === "TimeoutError" || error.name === "AbortError");
+    throw new ApiError(
+      timedOut
+        ? "Checkout API timed out. The backend never responded — check API_PROXY_URL."
+        : "Network error — could not reach the server",
+      0,
+    );
   }
 
   const contentType = response.headers.get("content-type") || "";
@@ -61,13 +70,26 @@ async function request<T>(
 
   const payload = await response.json().catch(() => ({}));
 
-  if (!response.ok) {
+  if (
+    response.ok &&
+    payload &&
+    typeof payload === "object" &&
+    !("success" in payload) &&
+    !("data" in payload)
+  ) {
+    throw new ApiError(
+      `Server returned 200 without API data: ${JSON.stringify(payload).slice(0, 180)}`,
+      502,
+    );
+  }
+
+  if (!response.ok || payload.success === false) {
     const message =
       payload.message ||
       (response.status === 401
         ? "Invalid email or password"
         : `Request failed (${response.status})`);
-    throw new ApiError(message, response.status);
+    throw new ApiError(message, response.status || 500);
   }
 
   return payload as T;

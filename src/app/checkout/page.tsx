@@ -12,7 +12,13 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 import PageShell from "@/components/ui/PageShell";
 import { useAuth } from "@/context/AuthContext";
 import { api, ApiError } from "@/lib/api";
-import type { Address, Cart, CheckoutContact, Transaction } from "@/types/api";
+import type {
+  Address,
+  Cart,
+  CheckoutContact,
+  CheckoutStartResponse,
+  Transaction,
+} from "@/types/api";
 
 const DEFAULT_PRODUCT_SLUG = "layer-craft-duffel";
 
@@ -176,7 +182,19 @@ export default function CheckoutPage() {
         paymentMethod: "razorpay",
       });
 
-      const { transaction, razorpay } = result.data;
+      const payload = (result.data ?? result) as Partial<CheckoutStartResponse>;
+      const transaction = payload.transaction;
+      const razorpay = payload.razorpay;
+
+      if (!transaction || !razorpay) {
+        const preview = JSON.stringify(result).slice(0, 240);
+        throw new ApiError(
+          result.message ||
+            `Checkout returned 200 without payment data: ${preview}`,
+          500,
+        );
+      }
+
       const { openRazorpayCheckout } = await import("@/lib/razorpay");
 
       const payment = await openRazorpayCheckout({
@@ -196,7 +214,15 @@ export default function CheckoutPage() {
         razorpaySignature: payment.razorpay_signature,
       });
 
-      setSuccess(verified.data.transaction);
+      const verifiedTransaction = verified.data?.transaction;
+      if (!verifiedTransaction) {
+        throw new ApiError(
+          verified.message || "Payment verification did not return an order",
+          500,
+        );
+      }
+
+      setSuccess(verifiedTransaction);
       setCart({ ...cart, items: [], subtotal: 0, itemCount: 0 });
     } catch (err) {
       if (err instanceof Error && err.message === "Payment cancelled") {

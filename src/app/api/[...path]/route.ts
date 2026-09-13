@@ -48,7 +48,25 @@ async function proxyRequest(request: NextRequest, pathSegments: string[]) {
     init.body = await request.text();
   }
 
-  const backendResponse = await fetch(targetUrl, init);
+  init.signal = AbortSignal.timeout(15000);
+
+  let backendResponse: Response;
+  try {
+    backendResponse = await fetch(targetUrl, init);
+  } catch (error) {
+    const timedOut =
+      error instanceof DOMException &&
+      (error.name === "TimeoutError" || error.name === "AbortError");
+    return NextResponse.json(
+      {
+        success: false,
+        message: timedOut
+          ? `Backend timed out: ${API_URL}. Set API_PROXY_URL to your live API.`
+          : `Could not reach backend at ${API_URL}. Set API_PROXY_URL on Vercel.`,
+      },
+      { status: 502 },
+    );
+  }
   const responseHeaders = new Headers();
 
   backendResponse.headers.forEach((value, key) => {
@@ -74,7 +92,23 @@ async function proxyRequest(request: NextRequest, pathSegments: string[]) {
     responseHeaders.append("set-cookie", legacySetCookie);
   }
 
-  return new NextResponse(backendResponse.body, {
+  const bodyText = await backendResponse.text();
+
+  if (!bodyText.trim()) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: `Backend returned empty ${backendResponse.status} from ${targetUrl}. The API did not create a Razorpay order.`,
+      },
+      { status: 502 },
+    );
+  }
+
+  if (!responseHeaders.get("content-type")) {
+    responseHeaders.set("content-type", "application/json");
+  }
+
+  return new NextResponse(bodyText, {
     status: backendResponse.status,
     statusText: backendResponse.statusText,
     headers: responseHeaders,
