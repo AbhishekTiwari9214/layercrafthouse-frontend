@@ -1,0 +1,9 @@
+Place your duffel bag GLB/GLTF model here as `duffel-bag.glb`.
+
+Then update `MODEL_PATH` in `src/components/ProductViewer/DuffelBagScene.tsx`:
+
+```ts
+export const MODEL_PATH = "/models/duffel-bag.glb";
+```
+
+The scene will automatically load the model instead of the procedural placeholder.

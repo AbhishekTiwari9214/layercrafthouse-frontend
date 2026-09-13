@@ -1,0 +1,58 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 04.03.2025 18:43:29
+
+newmtl b7523168_f6de_4388_87d0_151c8f21e058
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.0090 0.0090 0.0090
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_bump ..\textures\relebook-export-ggach147010-001.jpg
+	bump ..\textures\relebook-export-ggach147010-001.jpg
+
+newmtl 1905ac91_6429_4ee7_81af_66b9c7c575b9
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5000 0.5000 0.5000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka ..\textures\relebook-export-ggach147010-003.jpg
+	map_Kd ..\textures\relebook-export-ggach147010-003.jpg
+
+newmtl 727521eb_65fd_409f_a454_40364a51979f
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5000 0.5000 0.5000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka ..\textures\relebook-export-ggach147010-004.jpg
+	map_Kd ..\textures\relebook-export-ggach147010-004.jpg
+	map_bump ..\textures\relebook-export-ggach147010-005.jpg
+	bump ..\textures\relebook-export-ggach147010-005.jpg
+
+newmtl 5371c315_9a80_486e_80af_3882ec9c8ac2
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.6251 0.6251 0.6251
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
