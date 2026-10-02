@@ -25,8 +25,8 @@ export default function TermsOfServicePage() {
               Effective Date: {effectiveDate}
             </p>
             <p className="text-sm leading-relaxed text-warm-gray md:text-base">
-              These Terms of Service ("Terms") govern your access to and use of {appName} and our
-              website at {websiteUrl}. By using our services, you agree to these Terms.
+                These Terms of Service (&quot;Terms&quot;) govern your access to and use of {appName} and our
+                website at {websiteUrl}. By using our services, you agree to these Terms.
             </p>
           </header>
 
@@ -91,7 +91,7 @@ export default function TermsOfServicePage() {
           <section className="space-y-3">
             <h2 className="step-heading">7. Disclaimers</h2>
             <p className="step-copy">
-              Services are provided on an "as is" and "as available" basis without warranties of any
+              Services are provided on an &quot;as is&quot; and &quot;as available&quot; basis without warranties of any
               kind, express or implied, including merchantability, fitness for a particular purpose,
               and non-infringement, to the fullest extent permitted by law.
             </p>

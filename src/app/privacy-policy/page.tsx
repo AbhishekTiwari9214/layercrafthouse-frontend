@@ -26,10 +26,11 @@ export default function PrivacyPolicyPage() {
               Effective Date: {effectiveDate}
             </p>
             <p className="text-sm leading-relaxed text-warm-gray md:text-base">
-              This Privacy Policy explains how {appName} ("we", "our", or "us") collects, uses,
-              stores, and protects your information when you use our website and services at{" "}
-              {websiteUrl}.
-            </p>
+  This Privacy Policy explains how {appName} (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) collects, uses,
+  stores, and protects your information when you use our website and services at{" "}
+  {websiteUrl}.
+</p>
+
           </header>
 
           <section className="space-y-3">
