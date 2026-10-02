@@ -4,8 +4,13 @@ const footerLinks = [
   { label: "The Bag", href: "#the-bag" },
   { label: "Craftsmanship", href: "#craftsmanship" },
   { label: "Story", href: "#story" },
-  { label: "Contact", href: "#" },
+  { label: "Contact", href: "mailto:support@layercrafthouse.com" },
   { label: "Instagram", href: "#" },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Service", href: "/terms-of-service" },
 ];
 
 export default function Footer() {
@@ -13,7 +18,7 @@ export default function Footer() {
     <footer id="footer" className="border-t border-ivory/8 py-10 md:py-12">
       <div className="section-padding">
         <div className="flex flex-col items-center justify-between gap-8 text-center md:flex-row md:items-center md:text-left">
-          <Link href="#" className="label-caps text-ivory/80 transition-colors hover:text-gold">
+          <Link href="/" className="label-caps text-ivory/80 transition-colors hover:text-gold">
             Layer Craft House
           </Link>
 
@@ -31,9 +36,24 @@ export default function Footer() {
           </ul>
         </div>
 
-        <p className="mt-6 text-center text-xs text-warm-gray/60 md:text-left">
-          © 2026 Layer Craft House. All rights reserved.
-        </p>
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-ivory/8 pt-6 text-center md:flex-row md:text-left">
+          <p className="text-xs text-warm-gray/60">
+            © 2026 Layer Craft House. All rights reserved.
+          </p>
+
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+            {legalLinks.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className="label-caps text-[0.625rem] text-warm-gray transition-colors duration-500 hover:text-ivory"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </footer>
   );
